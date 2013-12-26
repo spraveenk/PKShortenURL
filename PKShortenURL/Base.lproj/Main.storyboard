@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-98" y="44"/>
         </scene>
-        <!--View Controller - ShortURL-->
+        <!--View Controller - PKShortener-->
         <scene sceneID="11d-sJ-uwh">
             <objects>
                 <viewController id="lnj-6L-eTX" customClass="PKViewController" sceneMemberID="viewController">
@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="t1l-Uy-UIP">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your URL here" minimumFontSize="17" clearButtonMode="whileEditing" id="t1l-Uy-UIP">
                                 <rect key="frame" x="20" y="85" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -54,7 +54,7 @@
                                     <action selector="shortIT:" destination="lnj-6L-eTX" eventType="touchUpInside" id="KhE-cf-0Mx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GT1-Ie-4bk">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GT1-Ie-4bk">
                                 <rect key="frame" x="20" y="212" width="280" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -64,7 +64,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ShortURL" id="nDr-C8-3oX"/>
+                    <navigationItem key="navigationItem" title="PKShortener" id="nDr-C8-3oX"/>
                     <connections>
                         <outlet property="_resultLabel" destination="GT1-Ie-4bk" id="Ops-hW-Pik"/>
                         <outlet property="_textField" destination="t1l-Uy-UIP" id="Wjr-xf-IxJ"/>
