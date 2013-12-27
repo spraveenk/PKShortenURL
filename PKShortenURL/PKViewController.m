@@ -29,7 +29,11 @@
 
 -(IBAction)copyIT:(id)sender {
     
-    [UIPasteboard generalPasteboard].URL = [NSURL URLWithString:_resultString];
+    if ([_resultString length] == 0 || ![_resultString length]) {
+        [[[UIAlertView alloc] initWithTitle:nil message:@"Empty result cannot be copied" delegate:nil cancelButtonTitle:@"Okay :(" otherButtonTitles:nil, nil] show];
+    } else {
+        [UIPasteboard generalPasteboard].URL = [NSURL URLWithString:_resultString];
+    }
 }
 
 -(IBAction)shortIT:(id)sender {
