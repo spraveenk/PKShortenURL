@@ -38,6 +38,7 @@
 
 -(IBAction)shortIT:(id)sender {
     
+    [_textField resignFirstResponder];
     if ([[_textField text] length] == 0 || [_textField text] == nil) {
         [[[UIAlertView alloc] initWithTitle:nil message:@"Empty URL cannot shorten" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
     } else {
@@ -60,6 +61,14 @@
     _resultString = result;
     _resultLabel.text = _resultString;
     NSLog(@"Result - %@", result);
+}
+
+#pragma mark - UIView Touches
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [self.view endEditing:YES];
+    [_textField resignFirstResponder];
 }
 
 #pragma mark - UITextField Delegate
