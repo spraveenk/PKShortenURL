@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
 
 // Custom Delegate inspired by - http://stackoverflow.com/a/1218098/940096
 @protocol PKShortenerDelegate <NSObject>
@@ -16,7 +17,7 @@
 
 @end
 
-@interface PKShortener : NSObject
+@interface PKShortener : NSObject <MBProgressHUDDelegate>
 
 -(void)setURL:(NSString *)stringURL;
 
