@@ -8,21 +8,20 @@
 
 #import "PKShortener.h"
 
+@interface PKShortener () <NSURLSessionDelegate, NSURLSessionDataDelegate>
+
+@end
+
 @implementation PKShortener {
     
-    NSURLConnection *_connection;
-    NSMutableData *_mutableData;
     NSString *_resultString;
     MBProgressHUD *HUD;
-    
-    long long expectedLength;
-    long long currentLength;
 }
 
 #pragma mark MBProgressHUDDelegate methods
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidded
+    // Remove HUD from screen when the HUD was hidden
     [HUD removeFromSuperview];
     HUD = nil;
 }
@@ -31,41 +30,31 @@
 -(void)setURL:(NSString *)stringURL
 {
     HUD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    HUD.delegate = self;
     
-    _connection = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@", Shorten_URL, stringURL]]] delegate:self];
+    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    _mutableData = [[NSMutableData alloc] init];
-    [_connection start];
-}
-
-#pragma mark - NSURLConnection Actions
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    [_mutableData setLength:0]; currentLength = 0;
-    HUD.mode = MBProgressHUDModeDeterminate;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [_mutableData appendData:data];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
     
-    HUD.progress = currentLength / (float)expectedLength;
+    NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@", Shorten_URL, stringURL]]];
+    
+    [task resume];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    [[[UIAlertView alloc] initWithTitle:@"Message" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didCompleteWithError:(nullable NSError *)error {
+    [HUD hide:YES];
+    if (error) {
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil] show];
+    }
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+    didReceiveData:(NSData *)data {
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
     HUD.mode = MBProgressHUDModeCustomView;
     [HUD hide:YES afterDelay:2];
     
-    _resultString = [[NSString alloc] initWithData:_mutableData encoding:NSUTF8StringEncoding];
+    _resultString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     if ([_resultString length] == 0 || _resultString == nil) {
         

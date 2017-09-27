@@ -11,6 +11,9 @@
 
 @interface PKViewController : UIViewController <UITextFieldDelegate, PKShortenerDelegate>
 
+@property (nonatomic, strong) IBOutlet UITextField *textField;
+@property (nonatomic, strong) IBOutlet UITextView *textView;
+
 -(IBAction)copyIT:(id)sender;
 -(IBAction)shortIT:(id)sender;
 

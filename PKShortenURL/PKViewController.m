@@ -13,9 +13,6 @@
 @end
 
 @implementation PKViewController {
-    
-    IBOutlet UITextField *_textField;
-    IBOutlet UILabel *_resultLabel;
     NSString *_resultString;
 }
 
@@ -38,18 +35,18 @@
 
 -(IBAction)shortIT:(id)sender {
     
-    [_textField resignFirstResponder];
-    if ([[_textField text] length] == 0 || [_textField text] == nil) {
+    [self.textField resignFirstResponder];
+    if ([[self.textField text] length] == 0 || [self.textField text] == nil) {
         [[[UIAlertView alloc] initWithTitle:nil message:@"Empty URL cannot shorten" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
     } else {
         
-        if (![self validateUrl:[_textField text]]) {
+        if (![self validateUrl:[self.textField text]]) {
             
             [[[UIAlertView alloc] initWithTitle:nil message:@"Invalid URL" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
         } else {
             
             PKShortener *shortner = [[PKShortener alloc] init];
-            [shortner setURL:_textField.text];
+            [shortner setURL:self.textField.text];
             shortner.delegate = self;
         }
     }
@@ -59,7 +56,7 @@
 -(void)shortenerResult:(NSString *)result
 {
     _resultString = result;
-    _resultLabel.text = _resultString;
+    self.textView.text = _resultString;
     NSLog(@"Result - %@", result);
 }
 
@@ -68,7 +65,7 @@
 {
     [super touchesBegan:touches withEvent:event];
     [self.view endEditing:YES];
-    [_textField resignFirstResponder];
+    [self.textField resignFirstResponder];
 }
 
 #pragma mark - UITextField Delegate
@@ -80,8 +77,6 @@
 #pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
-    _textField.delegate = self;
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }

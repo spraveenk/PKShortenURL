@@ -17,7 +17,7 @@
 
 
 // Another Server
-//#define Shorten_URL "http://tinyurl.com/api-create.php?url="
+#define Shorten_URL "https://tinyurl.com/api-create.php?url="
 
 // New Server
-#define Shorten_URL "http://is.gd/create.php?format=simple&url=" // or try with this - http://v.gd/create.php?format=simple&url=
+//#define Shorten_URL "https://is.gd/create.php?format=simple&url=" // or try with this - http://v.gd/create.php?format=simple&url=
