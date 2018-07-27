@@ -19,7 +19,10 @@
 }
 
 #pragma mark MBProgressHUDDelegate methods
-
+/**
+ * Displaying the ProgressHUD while interaction happening with Network API.
+ * @param hud reference.
+ */
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidden
     [HUD removeFromSuperview];
@@ -27,6 +30,10 @@
 }
 
 #pragma mark - Actions
+/**
+ * Assigning the URL which needs to be shorten.
+ * @param stringURL will hold the actual url string.
+ */
 -(void)setURL:(NSString *)stringURL
 {
     HUD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -40,8 +47,8 @@
     [task resume];
 }
 
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-didCompleteWithError:(nullable NSError *)error {
+#pragma mark - NSURLSession Delegate
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
     [HUD hide:YES];
     if (error) {
         [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil] show];

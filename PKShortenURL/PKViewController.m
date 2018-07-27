@@ -17,13 +17,22 @@
 }
 
 #pragma mark - Actions
-- (BOOL) validateUrl: (NSString *) candidate {
+/**
+ * This method will validate given URL is a valid one with Regex
+ * @return Returns a Boolean value whether TRUE or FALSE
+ * @param Parameter urlString will have the actual URL String
+ */
+- (BOOL)validateUrl:(NSString *)urlString {
     NSString *urlRegEx =
-    @"((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"; // (http|https)://
+    @"((http|https)://(\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+";
     NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
-    return [urlTest evaluateWithObject:candidate];
+    return [urlTest evaluateWithObject:urlString];
 }
 
+/**
+ * IBAction for copying the generated shorten URL.
+ * @param sender will hold the reference of the IBAction
+ */
 -(IBAction)copyIT:(id)sender {
     
     if ([_resultString length] == 0 || ![_resultString length]) {
@@ -33,18 +42,19 @@
     }
 }
 
+/**
+ * IBAction for generating shorten URL.
+ * @param sender will hold the reference of the IBAction
+ */
 -(IBAction)shortIT:(id)sender {
     
     [self.textField resignFirstResponder];
     if ([[self.textField text] length] == 0 || [self.textField text] == nil) {
         [[[UIAlertView alloc] initWithTitle:nil message:@"Empty URL cannot shorten" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
     } else {
-        
         if (![self validateUrl:[self.textField text]]) {
-            
             [[[UIAlertView alloc] initWithTitle:nil message:@"Invalid URL" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
         } else {
-            
             PKShortener *shortner = [[PKShortener alloc] init];
             [shortner setURL:self.textField.text];
             shortner.delegate = self;
@@ -53,6 +63,10 @@
 }
 
 #pragma mark - PKShortner Delegate
+/**
+ * This method will append the shorten URL to the textView
+ * @param result will contain the shortel URL
+ */
 -(void)shortenerResult:(NSString *)result
 {
     _resultString = result;
@@ -61,6 +75,9 @@
 }
 
 #pragma mark - UIView Touches
+/*
+ * This method will helps to dismiss the Keyboard by tapping on view
+ */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
