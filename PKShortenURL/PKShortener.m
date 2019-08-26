@@ -7,26 +7,25 @@
 //
 
 #import "PKShortener.h"
+#import "PKAppDelegate.h"
 
-@interface PKShortener () <NSURLSessionDelegate, NSURLSessionDataDelegate>
+@interface PKShortener ()
 
 @end
 
 @implementation PKShortener {
     
     NSString *_resultString;
-    MBProgressHUD *HUD;
 }
 
-#pragma mark MBProgressHUDDelegate methods
-/**
- * Displaying the ProgressHUD while interaction happening with Network API.
- * @param hud reference.
- */
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidden
-    [HUD removeFromSuperview];
-    HUD = nil;
+#pragma mark - Shared Instance
++ (instancetype)sharedInstance {
+    static PKShortener *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[PKShortener alloc] init];
+    });
+    return sharedInstance;
 }
 
 #pragma mark - Actions
@@ -36,42 +35,54 @@
  */
 -(void)setURL:(NSString *)stringURL
 {
-    HUD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     
     NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultConfiguration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
-    NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@", Shorten_URL, stringURL]]];
-    
-    [task resume];
+    [[session dataTaskWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%s%@", Shorten_URL, stringURL]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        [self parseResponseWithError:error responseData:data];
+        
+    }] resume];
 }
 
-#pragma mark - NSURLSession Delegate
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-    [HUD hide:YES];
+#pragma mark - Custom Methods
+- (void)parseResponseWithError:(NSError *)error responseData:(NSData *)data {
+    [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
+    
     if (error) {
-        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil] show];
-    }
-}
-
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
-    didReceiveData:(NSData *)data {
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-    HUD.mode = MBProgressHUDModeCustomView;
-    [HUD hide:YES afterDelay:2];
-    
-    _resultString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    if ([_resultString length] == 0 || _resultString == nil) {
-        
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Nothing returns!!" delegate:nil cancelButtonTitle:@"Yeah i can see :(" otherButtonTitles:nil, nil] show];
+        [self showAlertController:@"Error" message:[error localizedDescription] buttonTitle:@"Yeah, understood!"];
     } else {
+        _resultString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        if ([[self delegate] respondsToSelector:@selector(shortenerResult:)]) {
-            [[self delegate] shortenerResult:_resultString];
+        if ([_resultString length] == 0 || _resultString == nil) {
+            [self showAlertController:nil message:@"Nothing returns!!" buttonTitle:@"Okay"];
+        } else {
+            
+            if ([[self delegate] respondsToSelector:@selector(shortenerResult:)]) {
+                [[self delegate] shortenerResult:_resultString];
+            }
         }
     }
+}
+
+
+#pragma mark - UIAlertController Common method
+
+- (void)showAlertController:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    //We add buttons to the alert controller by creating UIAlertActions:
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:buttonTitle
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil]; //You can use a block here to handle a press on this button
+    [alertController addAction:actionOk];
+    
+    UIViewController *rootViewController = [[(PKAppDelegate *)[[UIApplication sharedApplication] delegate] window] rootViewController];
+    
+    [rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

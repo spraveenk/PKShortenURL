@@ -36,7 +36,8 @@
 -(IBAction)copyIT:(id)sender {
     
     if ([_resultString length] == 0 || ![_resultString length]) {
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Empty result cannot be copied" delegate:nil cancelButtonTitle:@"Okay :(" otherButtonTitles:nil, nil] show];
+        PKShortener *shortner = [PKShortener sharedInstance];
+        [shortner showAlertController:nil message:@"Empty result cannot be copied" buttonTitle:@"Okay :("];
     } else {
         [UIPasteboard generalPasteboard].URL = [NSURL URLWithString:_resultString];
     }
@@ -50,12 +51,12 @@
     
     [self.textField resignFirstResponder];
     if ([[self.textField text] length] == 0 || [self.textField text] == nil) {
-        [[[UIAlertView alloc] initWithTitle:nil message:@"Empty URL cannot shorten" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
+        [[PKShortener sharedInstance] showAlertController:nil message:@"Empty URL cannot shorten" buttonTitle:@"Understood!"];
     } else {
         if (![self validateUrl:[self.textField text]]) {
-            [[[UIAlertView alloc] initWithTitle:nil message:@"Invalid URL" delegate:nil cancelButtonTitle:@"Understood!" otherButtonTitles:nil, nil] show];
+            [[PKShortener sharedInstance] showAlertController:nil message:@"Invalid URL" buttonTitle:@"Understood!"];
         } else {
-            PKShortener *shortner = [[PKShortener alloc] init];
+            PKShortener *shortner = [PKShortener sharedInstance];
             [shortner setURL:self.textField.text];
             shortner.delegate = self;
         }

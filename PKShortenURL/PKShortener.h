@@ -19,8 +19,13 @@
 
 @interface PKShortener : NSObject <MBProgressHUDDelegate>
 
++ (instancetype)sharedInstance;
+
 -(void)setURL:(NSString *)stringURL;
 
 @property (nonatomic)id<PKShortenerDelegate> delegate;
+
+// Custom alert controller action
+- (void)showAlertController:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle;
 
 @end

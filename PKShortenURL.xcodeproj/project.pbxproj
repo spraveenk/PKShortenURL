@@ -178,7 +178,6 @@
 				AD254F846E3BB635B7314155 /* Pods-PKShortenURL.debug.xcconfig */,
 				6D4F09CD1172C8FD0A6E8634 /* Pods-PKShortenURL.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
