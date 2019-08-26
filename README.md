@@ -8,3 +8,11 @@ This simple application explains you how long URL has been shoten with free shor
 http://is.gd/  Provides your the php functions for shortening your URL
 
 Copyright!
+
+
+Installation
+============
+
+To use the project run below command on your terminal on the path of project directory
+
+`pod install`
