@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4271896C4A4C33C7C73E32D5 /* Pods_PKShortenURL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 910F1458038E51BECA0FADF5 /* Pods_PKShortenURL.framework */; };
 		7D702A49186C0C3800097FEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D702A48186C0C3800097FEB /* Foundation.framework */; };
 		7D702A4B186C0C3800097FEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D702A4A186C0C3800097FEB /* CoreGraphics.framework */; };
 		7D702A4D186C0C3800097FEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D702A4C186C0C3800097FEB /* UIKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D4F09CD1172C8FD0A6E8634 /* Pods-PKShortenURL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKShortenURL.release.xcconfig"; path = "Target Support Files/Pods-PKShortenURL/Pods-PKShortenURL.release.xcconfig"; sourceTree = "<group>"; };
 		7D702A45186C0C3800097FEB /* PKShortenURL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKShortenURL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D702A48186C0C3800097FEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7D702A4A186C0C3800097FEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,6 +58,8 @@
 		7D702A73186C0C3800097FEB /* PKShortenURLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PKShortenURLTests.m; sourceTree = "<group>"; };
 		7D702A7E186C2EA900097FEB /* PKShortener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKShortener.h; sourceTree = "<group>"; };
 		7D702A7F186C2EA900097FEB /* PKShortener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKShortener.m; sourceTree = "<group>"; };
+		910F1458038E51BECA0FADF5 /* Pods_PKShortenURL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PKShortenURL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD254F846E3BB635B7314155 /* Pods-PKShortenURL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKShortenURL.debug.xcconfig"; path = "Target Support Files/Pods-PKShortenURL/Pods-PKShortenURL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 				7D702A4B186C0C3800097FEB /* CoreGraphics.framework in Frameworks */,
 				7D702A4D186C0C3800097FEB /* UIKit.framework in Frameworks */,
 				7D702A49186C0C3800097FEB /* Foundation.framework in Frameworks */,
+				4271896C4A4C33C7C73E32D5 /* Pods_PKShortenURL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +94,7 @@
 				7D702A6D186C0C3800097FEB /* PKShortenURLTests */,
 				7D702A47186C0C3800097FEB /* Frameworks */,
 				7D702A46186C0C3800097FEB /* Products */,
+				DED5495EB8EBDAB71986A4FA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +114,7 @@
 				7D702A4A186C0C3800097FEB /* CoreGraphics.framework */,
 				7D702A4C186C0C3800097FEB /* UIKit.framework */,
 				7D702A67186C0C3800097FEB /* XCTest.framework */,
+				910F1458038E51BECA0FADF5 /* Pods_PKShortenURL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,6 +172,16 @@
 			name = PKShortener;
 			sourceTree = "<group>";
 		};
+		DED5495EB8EBDAB71986A4FA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD254F846E3BB635B7314155 /* Pods-PKShortenURL.debug.xcconfig */,
+				6D4F09CD1172C8FD0A6E8634 /* Pods-PKShortenURL.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D702A77186C0C3800097FEB /* Build configuration list for PBXNativeTarget "PKShortenURL" */;
 			buildPhases = (
+				27DFA89C5AC61CE481C3C78A /* [CP] Check Pods Manifest.lock */,
 				7D702A41186C0C3800097FEB /* Sources */,
 				7D702A42186C0C3800097FEB /* Frameworks */,
 				7D702A43186C0C3800097FEB /* Resources */,
+				60A87CE57A05472174FF861C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,6 +284,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27DFA89C5AC61CE481C3C78A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PKShortenURL-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60A87CE57A05472174FF861C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PKShortenURL/Pods-PKShortenURL-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PKShortenURL/Pods-PKShortenURL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7D702A41186C0C3800097FEB /* Sources */ = {
@@ -425,6 +487,7 @@
 		};
 		7D702A78186C0C3800097FEB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD254F846E3BB635B7314155 /* Pods-PKShortenURL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -443,6 +506,7 @@
 		};
 		7D702A79186C0C3800097FEB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D4F09CD1172C8FD0A6E8634 /* Pods-PKShortenURL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
