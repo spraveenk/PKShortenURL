@@ -29,10 +29,6 @@
 }
 
 #pragma mark - Actions
-/**
- * Assigning the URL which needs to be shorten.
- * @param stringURL will hold the actual url string.
- */
 -(void)setURL:(NSString *)stringURL
 {
     [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
